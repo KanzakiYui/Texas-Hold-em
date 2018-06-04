@@ -1,2 +1,3 @@
 # Texas-Hold-em
 This is only the beginning of the whole poker game development
+These methods, classes, and key idea of algorithms may be adopted in the near future...
