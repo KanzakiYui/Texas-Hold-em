@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Poker Demo</title>
+</head>
+<body>
+    <div id="Container">
+        <button id="GetResult">Random Hands</button>
+        <p id="Result">
+        </p>
+    </div>
+</body>
+<style>
+    body{
+        font-size: 1.25rem;
+        padding: 5rem 0rem;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
+    #Container{
+        border: 1px solid black;
+        width: 55%;
+        margin: 0;
+        padding: 1rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    #GetResult{
+        background: rgb(53, 46, 46);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 1rem;
+        font-weight: bolder;
+    }
+    #GetResult:hover{
+        cursor: pointer;
+        background-color: rgb(175, 14, 14); 
+    }
+    #GetResult:focus{
+        outline: none;
+    }
+    #Result{
+        width: 100%;
+        padding: 0.25rem 0.5rem;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        white-space: pre-wrap;
+        min-height: 10rem;
+    }   
+
+</style>
+<script>
+    document.getElementById("GetResult").addEventListener("click",Ajax);
+    function Ajax(){
+        var XHR = new XMLHttpRequest();
+        XHR.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("Result").innerHTML = this.responseText;
+            }
+        };
+        XHR.open("GET", "PokerTest", true);
+        XHR.send();
+    }
+</script>
+</html>

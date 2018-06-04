@@ -1,0 +1,14 @@
+{
+  "name": "pokerdemo",
+  "version": "1.0.0",
+  "description": "Basic classes, algorithms, methods for further usage regarding poker game development",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Yaopeng Liu",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
