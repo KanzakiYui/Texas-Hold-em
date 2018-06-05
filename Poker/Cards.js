@@ -5,7 +5,7 @@ var Card = require("./Card");
  * JavaScript language, instead, using Module Pattern is quite enough
  */
 var Cards = (function(){
-    let suit = ['C', 'D', 'H', 'S'];
+    let suit = ['Club', 'Diamond', 'Heart', 'Spade'];
     let rank = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
     let result = new Array();
     for(var i=0; i<suit.length; i++)

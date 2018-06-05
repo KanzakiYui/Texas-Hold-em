@@ -111,17 +111,13 @@
      quickDebugShow(){
         let current = new String();
          for (var i=0;i<this.currentHand.length;i++){
-             let suit, rank;
-             if(this.currentHand[i].suit == 'C')    suit = 'Club';
-             else if(this.currentHand[i].suit == 'D')    suit = 'Diamond';
-             else if(this.currentHand[i].suit == 'H')    suit = 'Heart';
-             else suit = 'Spade';
+             let rank;
              if(this.currentHand[i].rank == 11) rank = 'J';
              else if(this.currentHand[i].rank == 12) rank = 'Q';
              else if(this.currentHand[i].rank == 13) rank = 'K';
              else if(this.currentHand[i].rank == 14) rank = 'A';
              else rank = this.currentHand[i].rank
-             current+=`${suit} ${rank}`.padEnd(20, ' ');
+             current+=`${this.currentHand[i].suit} ${rank}`.padEnd(20, ' ');
          }
         // console.log(current);                                // instead of just output in console, we can return it as string
         return current;
@@ -132,27 +128,5 @@
 
 
  /* -------------   The following are for test only --------------  */
- /*
- var testhand = new Hand();
- testhand.Add(new Card('H', 5));
- testhand.Add(new Card('S', 7));
- testhand.Add(new Card('D', 13));
- testhand.Add(new Card('C', 11));
- testhand.Add(new Card('C', 4));
- testhand.debugShow();
-
- var otherhand = new Hand();
- otherhand.Add(new Card('C', 7));
- otherhand.Add(new Card('C', 2));
- otherhand.Add(new Card('D', 2));
- otherhand.Add(new Card('C', 3));
- otherhand.Add(new Card('H', 9));
- console.log(otherhand.GetCardsByRank(2));
- console.log(otherhand.GetCardsByRank(1));
- console.log(otherhand.GetCardsBySuit('S'));
- console.log(otherhand.GetCardsBySuit('C'));
- console.log(otherhand.GetCardByRankAndSuit(7, 'C'));
- console.log(otherhand.GetCardByRankAndSuit(9, 'C'));
-*/
 
  

@@ -35,11 +35,3 @@ class Card {
 module.exports = Card;
 
 /*  -----------     The following are for test only         -------     */
-/*
-var remains = [
-    {key: "isUsed", value: false}, {key: "isPocketCard", value: false}, {key: "isCommunityCard", value: false}, 
-    {key: "owner", value: null}
-]
-var card = new Card('H', 10, remains);
-card.debugShow();
-*/
