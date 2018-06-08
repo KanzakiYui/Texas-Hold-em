@@ -1,71 +1,55 @@
-// var Card = require("./Card");                        // May not use
-
-/*
- * Class:   Hand
- *      An instance of Hand may include 0 up to 5 instances of Card, at most 2 of them are Pocket Card
- * while at least 3 of them are Community Card. The most important usage of Hand is used for comparing any two Hands and determine the
- * bigger one. Finally, used to determine the winner. It not only holds several Card instances, but also provide some methods to make comparison
- * in the near future easier.
- * 1. Properties
- *      1.1 currentHand
- *          An array of Card instances to indicate what cards it currently holds.
- *      1.2 sortedHand
- *          An identical hand while cards inside is sorted by rank (from high to low)
- *      1.3 ranks
- *          An array stores ranks of all cards currently holds, regardless of suit
- *      1.4 suits
- *          An array stores suits of all cards currently holds, regardless of rank
- * 2. Methods
- *      2.1 Add(Card)
- *          Add one Card instance to current Hand
- *      2.2 SortedHand()
- *          Sort the current hand by rank from high to low, store in sortedHand while keep currentHand originally and intact. 
- *      2.3 AllRanks()
- *          Used for updating property ranks
- *      2.4 AllSuits()
- *          Used for updating property suits
- *      2.5 GetCardsByRank(rank)
- *          Return all cards this hand holds by given rank (at most 4 cards) or null
- *      2.6 GetCardsBySuit(suit)
- *          Return all cards this hand holds by given suit (at most 5 cards) or null
- *      2.7 GetCardByRankAndSuit(rank, suit)
- *          Return a specific card this hand holds by given rank and suit or null
- *      2.8 debugShow()
- *          For debug only, used to show currentHand and sortedHand
- *      2.9 quickDebugShow()
- *          A simplier version of debugShow()
- */
-
+var Card = require("./Card");                        
+/** Class Hand is the basic class for poker hand consists of multiple Card instances */
  class Hand{
-     constructor(){
+    /**
+      * Hand's constructor is used to initial three properties for hand info, ranks info and suits info
+    */
+    constructor(){
         this.currentHand = new Array();
-        this.sortedHand = new Array();
         this.ranks = new Array();
         this.suits = new Array();
-     }
-     Add(card){
-        this.currentHand.push(card);
-        this.sortedHand.push(card);
-        this.SortedHand();
-        this.AllRanks();
-        this.AllSuits();
-        return this;
-     }
-     SortedHand(){
-        this.sortedHand.sort((prev, next)=>{
-            return next.rank-prev.rank;                       // sorted from high to low
-        });
-     }
-     AllRanks(){
+    }
+     /**
+     * Add function is used to add one or multiple Card instance into current Hand instance
+     * @param {Card | Card[]} card - one or multiple Card instance need to be added
+     * @return {Hand} current Hand instance, this is implemented for callback chain usage
+     */
+    Add(card){
+        if(Array.isArray(card)){
+            card.forEach((eachCard)=>{
+                this.currentHand.push(eachCard);
+                this.AllRanks();
+                this.AllSuits();
+            });
+        }
+        else{
+            this.currentHand.push(card);
+            this.AllRanks();
+            this.AllSuits();
+        }
+        return this;                                                        // return this allows us use callback chain
+    }
+    /**
+     * AllRanks function is used to update ranks property by currentHand property
+    */
+    AllRanks(){
         this.ranks = this.currentHand.map(card=>{
             return card.rank;
         })
-     }
-     AllSuits(){
+    }
+    /**
+     * AllSuits function is used to update suits property by currentHand property
+    */
+    AllSuits(){
         this.suits = this.currentHand.map(card=>{
             return card.suit;
         })
-     }
+    }
+    /**
+     * GetCardsByRank function is used to get one or more Card instances by given rank
+     * @param {int} rank - the rank used to retrieve
+     * @return {Card[] | null} null if didn't find it or the array of Cards retrieved
+     */
      GetCardsByRank(rank){
         var result = new Array();
         for(var i=0; i<this.currentHand.length;i++)
@@ -76,7 +60,12 @@
         else
             return null;
      }
-     GetCardsBySuit(suit){
+     /**
+     * GetCardsBySuit function is used to get one or more Card instances by given suit
+     * @param {string} suit - the suit used to retrieve
+     * @return {Card[] | null} null if didn't find it or the array of Cards retrieved
+     */
+    GetCardsBySuit(suit){
         var result = new Array();
         for(var i=0; i<this.currentHand.length;i++)
             if(this.currentHand[i].suit == suit)
@@ -86,29 +75,63 @@
         else
             return null;
      }
-     GetCardByRankAndSuit(rank, suit){
+     /**
+     * GetCardByRankAndSuit function is used to get the specific Card instance by given rank and suit
+     * @param {int} rank - the rank used to retrieve
+     * @param {string} suit - the suit used to retrieve
+     * @return {Card | null} null if didn't find it or the Card instance retrieved
+     */
+    GetCardByRankAndSuit(rank, suit){
         for(var i=0; i<this.currentHand.length;i++)
             if(this.currentHand[i].rank == rank && this.currentHand[i].suit == suit)
-                return this.currentHand[i]
+                return this.currentHand[i];
         return null;
      }
-     debugShow(){
-         let current = "current Hand:\n";
-         let sorted = "sorted Hand:\n";
-         let rankofAll = "all ranks of Hand:\n";
-         let suitofAll = "all suits of Hand:\n";
-         for (var i=0;i<this.currentHand.length;i++){
-            current+=`${this.currentHand[i].suit} ${this.currentHand[i].rank}      `;
-            sorted+=`${this.sortedHand[i].suit} ${this.sortedHand[i].rank}      `;
-            rankofAll += `${this.ranks[i]}   `;
-            suitofAll += `${this.suits[i]}   `;
-         }
-         console.log(current);
-         console.log(sorted);
-         console.log(rankofAll);
-         console.log(suitofAll);
+     /**
+     * GetCardByPosition function is used to get the specific Card by position in hand
+     * @param {int} position - the position used to retrieve
+     * @return {Card | null} null if didn't position is invalid or Card instance found
+     */
+    GetCardByPosition(position){
+        if(position >= this.currentHand.length || position < 0 )
+            return null
+        return this.currentHand[position];
+    }
+     /**
+     * GetPositionByCard function is used to get the position (start from 0) of given Card instance in current Hand instance
+     * @param {Card} card - the Card instance used to retrieve
+     * @return {int} -1 if didn't find it or the position of the Card instance retrieved
+     */
+    GetPositionByCard(card){
+         for(var i=0;i<this.currentHand.length;i++)
+            if(this.currentHand[i].rank == card.rank && this.currentHand[i].suit == card.suit)
+                return i;
+        return -1;
      }
-     quickDebugShow(){
+     /**
+     * SwapCardPostion function is used to swap two Card instances by given two position
+     * @param {int} positionA - the position used to swap
+     * @param {int} positionB - the position used to swap
+     * @return {undefined} only when the position is illegal
+     */
+     SwapCardPostion(positionA, positionB){
+        if(positionA >= this.currentHand.length || positionA < 0 )
+            return
+        if(positionB >= this.currentHand.length || positionB < 0 )
+            return
+         else{
+            var temp = this.currentHand[positionA];
+            this.currentHand[positionA] = this.currentHand[positionB];
+            this.currentHand[positionB] = temp;
+            this.AllRanks();
+            this.AllSuits();
+         }
+     }
+     /**
+     * GetSuitAndRank function is used to get information of only suit and rank of Card instances in current Hand instance
+     * @return {string} suit and rank information
+     */
+     GetSuitAndRank(){
         let current = new String();
          for (var i=0;i<this.currentHand.length;i++){
              let rank;
@@ -119,14 +142,31 @@
              else rank = this.currentHand[i].rank
              current+=`${this.currentHand[i].suit} ${rank}`.padEnd(20, ' ');
          }
-        // console.log(current);                                // instead of just output in console, we can return it as string
         return current;
      }
  }
 
+ /**
+ * Hand module is exported with Hand class definition.
+ * @module Hand
+ * @type {Hand}
+ */
  module.exports = Hand;
 
-
  /* -------------   The following are for test only --------------  */
-
- 
+/*
+var hand = new Hand();
+var card1 = new Card('Spade', 5);
+var card2 = new Card('Club', 10);
+var card3 = new Card('Club', 5);
+var card4 = new Card('Club', 9);
+var card5 = new Card('Heart', 5);
+hand.Add(card1).Add(card2).Add([card3, card4, card5]);
+console.log(hand.GetSuitAndRank());
+console.log(hand.ranks);
+console.log(hand.suits);
+hand.SwapCardPostion(hand.GetPositionByCard(card2), hand.GetPositionByCard(card5));
+console.log(hand.GetSuitAndRank());
+console.log(hand.ranks);
+console.log(hand.suits);
+*/
