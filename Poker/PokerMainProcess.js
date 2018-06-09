@@ -71,7 +71,7 @@ function Main(setting = null){
     */
    resultMessage["result"] = ""
    if(winnerId == 1 && HandCompare(bestHandOfPlayers[0], bestHandOfPlayers[1]).isTie == true){
-        resultMessage["result"] ="This game is tied! All "+handNumber+" players have the identical best hand!\n";
+        resultMessage["result"] ="Tied! All players have identical best hand!\n";
    }
    else{
         resultMessage["result"] ="The winner is ----- Player "+winnerId+" --------\n";
