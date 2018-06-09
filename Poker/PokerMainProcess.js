@@ -58,20 +58,23 @@ function Main(setting = null){
    // Finally, we compare the best hands of all players to determine the winner
    var winnerHand = bestHandOfPlayers[0];
    var winnerId = 1;
-   for(var i=0; i<handNumber; i++){
+   var tiedCount = 0;
+   for(var i=1; i<handNumber; i++){
         if(HandCompare(winnerHand, bestHandOfPlayers[i]).winner == "Right"){
             winnerHand = bestHandOfPlayers[i];
             winnerId = (i+1);
         }
+        else if(HandCompare(winnerHand, bestHandOfPlayers[i]).isTie == true){
+            tiedCount ++;
+        }
    }
    /**
-    * Here is a situation of tie of N players (N = 2, 3, 4, ....). This situation occurs when
-    * (1) winnerId = 1
-    * (2) HandCompare(bestHandOfPlayers[0], bestHandOfPlayers[1]).isTie == true
+    * Here is a situation of tie of N players (N = 2, 3, 4, ....). This situation occurs when 
+    * tiedCount == handNumber - 1
     */
    resultMessage["result"] = ""
-   if(winnerId == 1 && HandCompare(bestHandOfPlayers[0], bestHandOfPlayers[1]).isTie == true){
-        resultMessage["result"] ="Tied! All players have identical best hand!\n";
+   if(tiedCount == handNumber - 1){
+        resultMessage["result"] ="Game is Tied!\nAll players have identical best hand!\n";
    }
    else{
         resultMessage["result"] ="The winner is ----- Player "+winnerId+" --------\n";
