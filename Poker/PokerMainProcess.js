@@ -67,7 +67,7 @@ function Main(setting = null){
     }
     resultMessage["result"] = ""
     if(winnersArray.length > 1){     // multiple winners
-        resultMessage["result"] ="Multiple winners occur! They are: ";
+        resultMessage["result"] ="Multiple winners occur! They are:\n";
         for(var i=0; i<winnersArray.length;i++)
             resultMessage["result"] += "Player "+(winnersArray[i])+"\n"
     }
