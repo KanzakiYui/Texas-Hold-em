@@ -42,7 +42,7 @@ function HandAssignment(handNumber, minmumShuffleTimes, pocketCardsNumber, commu
     for(var i=0; i<handNumber; i++){
         assignmentResult['Hand'+(i+1)] = new Array();
         for(var j=0; j<pocketCardsNumber;j++)
-            assignmentResult['Hand'+(i+1)].push(Cards[2*i+j]);
+            assignmentResult['Hand'+(i+1)].push(Cards[(pocketCardsNumber)*i+j]);
     }
     assignmentResult['Community'] = new Array();
     for(var i=0; i<communityCardsNumber; i++)
