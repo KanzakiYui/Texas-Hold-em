@@ -144,13 +144,14 @@ div.Result>h3.header{
 }
 #Result{
     min-height: 5rem;
-    font-size: 200%;
+    font-size: 150%;
     color: rgb(255, 0, 0);
     font-weight: bolder;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1rem 1.5rem;
+    white-space: pre-wrap;
 }
 img{
     height: 5rem;
