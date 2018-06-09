@@ -11,7 +11,7 @@ const globalSetting = require("./Setting");
 */
 function Main(setting = null){
     if(setting == null)
-    setting = globalSetting
+        setting = globalSetting
     var resultMessage = new Object();
     var handNumber = setting.playerNumbers;
     var shuffleTimes = setting.minmumShuffleTimes;
@@ -32,18 +32,10 @@ function Main(setting = null){
             playersAllPossibleHands[i].push(newhand);
         }
     }
-   // The following is for debug show
-   /*
-   for(var i=0;i<handNumber;i++){
-       console.log("-------- All possible hands for Player "+(i+1)+" --------------");
-       for(var j=0; j<playersAllPossibleHands[i].length;j++)
-            console.log(playersAllPossibleHands[i][j].GetSuitAndRank());
-   }
-   */
-   // Now firstly we need select best hand of all possible hands for a player
-   var bestHandOfPlayers = new Array(handNumber);
-   resultMessage["bestHandsInfo"] = new Object();
-   for(var i=0; i<handNumber; i++){
+    // Now firstly we need select best hand of all possible hands for a player
+    var bestHandOfPlayers = new Array(handNumber);
+    resultMessage["bestHandsInfo"] = new Object();
+    for(var i=0; i<handNumber; i++){
         var bestHand = playersAllPossibleHands[i][0];
         for(var j=1; j<playersAllPossibleHands[i].length; j++){
             if(HandCompare(bestHand, playersAllPossibleHands[i][j]).winner == "Right")
@@ -54,32 +46,43 @@ function Main(setting = null){
         resultMessage["bestHandsInfo"][i+1]['besthand'] = bestHand.GetSuitAndRank();
         resultMessage["bestHandsInfo"][i+1]['bestrank'] = GetHandRank(bestHand).result;
         bestHandOfPlayers[i]=bestHand;
-   }
-   // Finally, we compare the best hands of all players to determine the winner
-   var winnerHand = bestHandOfPlayers[0];
-   var winnerId = 1;
-   var tiedCount = 0;
-   for(var i=1; i<handNumber; i++){
+    }
+    // Finally, we compare the best hands of all players to determine the winner
+    var winnerHand = bestHandOfPlayers[0];
+    var winnerId = 1;
+    for(var i=1; i<handNumber; i++){
         if(HandCompare(winnerHand, bestHandOfPlayers[i]).winner == "Right"){
             winnerHand = bestHandOfPlayers[i];
             winnerId = (i+1);
         }
-        else if(HandCompare(winnerHand, bestHandOfPlayers[i]).isTie == true){
-            tiedCount ++;
-        }
-   }
-   /**
-    * Here is a situation of tie of N players (N = 2, 3, 4, ....). This situation occurs when 
-    * tiedCount == handNumber - 1
+    }
+    /**
+    * Fristly, we get (one of) the winner, now we need to check if there are duplicate 
+    * winner (for example, there may be 2 winners of total 3 players)
     */
-   resultMessage["result"] = ""
-   if(tiedCount == handNumber - 1){
-        resultMessage["result"] ="Game is Tied!\nAll players have identical best hand!\n";
-   }
-   else{
+    var winnersArray = [winnerId];           // already find one
+    for(var i=0; i<handNumber; i++){
+        if((i+1)!=winnerId&&HandCompare(winnerHand, bestHandOfPlayers[i]).isTie == true)
+            winnersArray.push(i+1);
+    }
+    resultMessage["result"] = ""
+    if(winnersArray.length > 1){     // multiple winners
+        resultMessage["result"] ="Multiple winners occur! They are: ";
+        for(var i=0; i<winnersArray.length;i++)
+            resultMessage["result"] += "Player "+(winnersArray[i])+"\n"
+    }
+    else{
         resultMessage["result"] ="The winner is ----- Player "+winnerId+" --------\n";
-   }
-   return resultMessage;
+    }
+    /*
+    for (var key in resultMessage["assignResult"])
+        console.log(resultMessage["assignResult"][key])
+    for (var key in resultMessage["bestHandsInfo"])
+        for (var subkey in resultMessage["bestHandsInfo"][key])
+            console.log(resultMessage["bestHandsInfo"][key][subkey])
+    console.log(resultMessage["result"]);
+    */
+    return resultMessage;
 }
 
 function GetAllPossibleHand(pocketCards, communityCards){
