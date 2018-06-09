@@ -152,6 +152,7 @@ div.Result>h3.header{
     justify-content: center;
     padding: 1rem 1.5rem;
     white-space: pre-wrap;
+    text-align: center;
 }
 img{
     height: 5rem;
