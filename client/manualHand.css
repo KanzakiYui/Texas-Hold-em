@@ -49,9 +49,15 @@ div.pocketContainer>div.select>select{
     padding: 0px 0.25rem;
     border-radius: 0.25rem;
 }
+div.pocketContainer>div.select>select[disabled]{
+    background-color: rgb(187, 185, 185);
+}
 div.communityContainer>div.select>select:hover,
 div.pocketContainer>div.select>select:hover{
     cursor: pointer;
+}
+div.pocketContainer>div.select>select[disabled]:hover{
+    cursor: not-allowed;
 }
 div.communityContainer>div.select>select:focus,
 div.pocketContainer>div.select>select:focus{
@@ -68,7 +74,7 @@ div.communityContainer>div.communityCardsSelectionBlock>img,
     height: 5rem;
 }
 #PlayersContainer{
-    margin-top: 2rem;
+    margin-top: 1rem;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -78,7 +84,7 @@ div.communityContainer>div.communityCardsSelectionBlock>img,
 #PlayersContainer>div.pocketsForPlayer{
     border: 1px solid rgb(46, 35, 35);
     width: 25%;
-    margin: 1rem 0rem;
+    margin: 0.5rem 0rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -92,4 +98,81 @@ div.communityContainer>div.communityCardsSelectionBlock>img,
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+#Selections{
+    width: 52.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 1rem;
+    left: calc(50vw - 26.1rem);
+    border: 1px solid rgb(36, 33, 33);
+    background-color: rgb(36, 33, 33);
+    border-radius: 0.5rem;
+}
+#Selections>h2.header{
+    text-align: center;
+    color: white;
+}
+#Selections>div.content{
+    z-index: 3;
+}
+#Selections>div.content>img{
+    width: 3rem;
+    margin: 0.5rem;
+}
+#Selections>div.content>img:hover{
+    cursor: pointer;
+    animation: BiggerCard 0.5s;
+}
+@keyframes BiggerCard{
+    0%{transform: scale(1);}    100%{transform: scale(1.25);}
+}
+#Selections>div.footer{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    z-index: 3;
+}
+#Selections>div.footer>button.confirm,
+#Selections>div.footer>button.reset,
+#Selections>div.footer>button.close{
+    padding: 1rem 1.5rem;
+    color: white;
+    border-radius: 0.5rem;
+    font-size: 150%;
+    margin: 1rem 0rem;
+}
+#Selections>div.footer>button.confirm:hover,
+#Selections>div.footer>button.reset:hover,
+#Selections>div.footer>button.close:hover{
+    cursor: pointer;
+}
+#Selections>div.footer>button.confirm:focus,
+#Selections>div.footer>button.reset:focus,
+#Selections>div.footer>button.close:focus{
+    outline: none;
+}
+#Selections>div.footer>button.confirm{
+    background-color: rgb(19, 138, 19);
+    border: 1px solid rgb(19, 138, 19);
+}
+#Selections>div.footer>button.reset{
+    background-color: rgb(2, 137, 155);
+    border: 1px solid rgb(2, 137, 155);
+}
+#Selections>div.footer>button.close{
+    background-color: rgb(184, 26, 12);
+    border: 1px solid rgb(184, 26, 12);
+}
+#Selections>div.WholeBackGround{
+    z-index: 2;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
 }
