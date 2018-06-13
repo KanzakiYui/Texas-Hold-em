@@ -11,13 +11,20 @@ app.get("/", function(request, response){
 });
 app.get('/:filename', function (request, response) {
     var filename = request.params.filename;
-    response.sendFile(__dirname+"/client/"+filename);
-});
-app.get('/images/:filename', function (request, response) {
-    var filename = request.params.filename;
-    response.sendFile(__dirname+"/client/images/"+filename);
+    if(filename=="randomHand")
+        response.sendFile(__dirname+"/client/randomHand.html");
+    else if(filename=="manualHand")
+        response.sendFile(__dirname+"/client/manualHand.html");
+    else if(filename=="playerActionSimulation")
+        response.send("Coming soon...");
+    else
+        response.sendFile(__dirname+"/client/"+filename);
 });
 app.post('/Assignment', function (request, response) {
     var result = Main(request.body);
     response.send(JSON.stringify(result));
+});
+app.get('/images/:filename', function (request, response) {
+    var filename = request.params.filename;
+    response.sendFile(__dirname+"/client/images/"+filename);
 });

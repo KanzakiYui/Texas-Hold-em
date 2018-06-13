@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Random Hands Demo</title>
+    <link rel="stylesheet" type="text/css" href="randomHand.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="randomHand.js"></script>
+</head>
+<body>
+    <div id="GlobalSettingContainer" name="GlobalSettingContainer" action="main" method="post" target="_self">
+        <h3 class="header">Texas Hold'em Global Setting</h3>
+        <div class="content">
+            <div>
+                <p>Select number of players in match</p>
+                <select id="PlayerNumberSetting" name="PlayerNumberSetting">
+                    <option value="2">2 Players</option>    <option value="3" selected>3  Players</option>    
+                    <option value="4">4  Players</option>   <option value="5">5 Players</option>   
+                    <option value="6">6  Players</option> 
+                </select>
+            </div>
+            <div>
+                <p>Select number of pocket/hole cards each player holds</p>
+                <select id="PocketCardSetting" name="PocketCardSetting">
+                    <option value="2" selected>2 Cards</option>    <option value="3">3 Cards</option>    
+                    <option value="4">4 Cards</option>
+                </select>
+            </div>
+            <div>
+                <p>Select number of community cards</p>
+                <select id="CommunityCardSetting" name="CommunityCardSetting">
+                    <option value="4">4 Cards</option>    <option value="5" selected>5 Cards</option>    
+                    <option value="6">6 Cards</option>    <option value="7">7 Cards</option>   
+                     <option value="8">8 Cards</option> 
+                </select>
+            </div>
+            <div>
+                <p>Select minimum shuffle time before cards assignment</p>
+                <select id="ShuffleTimeSetting" name="ShuffleTimeSetting">
+                    <option value="1">Once</option>    <option value="2">Twice</option>    
+                    <option value="3">Three Times</option>    <option value="4">Four Times</option>    
+                </select>
+            </div>
+        </div>
+    </div>
+    <div id="Assignment">
+        <button onClick="Assignment()">Assignment</button>
+    </div>
+    <div id="CommunityCard">
+        <h3 class="header">Community Cards</h3>
+        <div class="content"></div>
+    </div>
+    <div class="PocketCards" id="players1">
+        <div id="Player1" class="Players">
+            <p class="header">Player1's Pocket Cards</p>
+            <div class="content"></div>
+        </div>
+        <div id="Player2" class="Players">
+            <p class="header">Player2's Pocket Cards</p>
+            <div class="content"></div>
+        </div>
+        <div id="Player3" class="Players">
+            <p class="header">Player3's Pocket Cards</p>
+            <div class="content"></div>
+        </div>
+        <div id="Player4" class="Players">
+            <p class="header">Player4's Pocket Cards</p>
+            <div class="content"></div>
+        </div>
+        <div id="Player5" class="Players">
+            <p class="header">Player5's Pocket Cards</p>
+            <div class="content"></div>
+        </div>
+        <div id="Player6" class="Players">
+            <p class="header">Player6's Pocket Cards</p>
+            <div class="content"></div>
+        </div>
+    </div>
+    <div id="Calculate">
+        <button onClick="Calculate()">Calculate</button>
+    </div>
+    <div class="PocketCards" id="players2">
+        <div id="Player1Best" class="Players">
+            <p class="header">Player1's Best Hand</p>
+            <div class="content"></div>
+            <div class="rank"></div>
+        </div>
+        <div id="Player2Best" class="Players">
+            <p class="header">Player2's Best Hand</p>
+            <div class="content"></div>
+            <div class="rank"></div>
+        </div>
+        <div id="Player3Best" class="Players">
+            <p class="header">Player3's Best Hand</p>
+            <div class="content"></div>
+            <div class="rank"></div>
+        </div>
+        <div id="Player4Best" class="Players">
+            <p class="header">Player4's Best Hand</p>
+            <div class="content"></div>
+            <div class="rank"></div>
+        </div>
+        <div id="Player5Best" class="Players">
+            <p class="header">Player5's Best Hand</p>
+            <div class="content"></div>
+            <div class="rank"></div>
+        </div>
+        <div id="Player6Best" class="Players">
+            <p class="header">Player6's Best Hand</p>
+            <div class="content"></div>
+            <div class="rank"></div>
+        </div>
+    </div>
+    <div class="Result">
+        <h3 class="header">Final Result</h3>
+        <div id="Result"></div>
+    </div>
+    <div id="Clear">
+        <button onClick="Clear()">Clear</button>
+    </div>
+</body>
+</html>

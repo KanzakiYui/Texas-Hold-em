@@ -1,0 +1,95 @@
+body{
+    padding: 1.25rem 1.5rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+div.communityContainer{
+    width: 70%;
+    padding: 0.5rem;
+    border: 1px solid rgb(46, 35, 35);
+}
+div.pocketContainer{
+    margin-top: 2rem;
+    width: 40%;
+    padding: 0.5rem;
+    border: 1px solid rgb(46, 35, 35);
+}
+div.communityContainer>h2,
+div.pocketContainer>h2,
+#PlayersContainer>div.pocketsForPlayer>h2{
+    margin-top: 0;
+    text-align: center;
+    color: rgb(167, 35, 35);
+}
+div.communityContainer>div.select{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 0.25rem;
+    border-radius: 0.25rem;
+}
+div.pocketContainer>div.select{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 0.25rem;
+    border-radius: 0.25rem;
+}
+div.communityContainer>div.select>label,
+div.pocketContainer>div.select>label{
+    margin-right: 1rem;
+    font-size: 120%;
+}
+div.communityContainer>div.select>select,
+div.pocketContainer>div.select>select{
+    width: 8rem;
+    padding: 0px 0.25rem;
+    border-radius: 0.25rem;
+}
+div.communityContainer>div.select>select:hover,
+div.pocketContainer>div.select>select:hover{
+    cursor: pointer;
+}
+div.communityContainer>div.select>select:focus,
+div.pocketContainer>div.select>select:focus{
+    outline: none;
+}
+div.communityContainer>div.communityCardsSelectionBlock{
+    min-height: 6rem;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 1rem;
+}
+div.communityContainer>div.communityCardsSelectionBlock>img,
+#PlayersContainer>div.pocketsForPlayer>div.content>img{
+    height: 5rem;
+}
+#PlayersContainer{
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+#PlayersContainer>div.pocketsForPlayer{
+    border: 1px solid rgb(46, 35, 35);
+    width: 25%;
+    margin: 1rem 0rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+}
+
+#PlayersContainer>div.pocketsForPlayer>div.content{
+    width: 100%;
+    min-height: 6rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

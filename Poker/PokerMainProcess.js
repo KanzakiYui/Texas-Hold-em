@@ -1,4 +1,5 @@
 var HandAssignment = require("./HandAssignment");
+var ManualHandAssignment = require("./ManualHandAssignment");
 var GetHandRank = require("./GetHandRank");
 var HandCompare = require("./HandCompare");
 var Combination = require("./Combination");
@@ -9,17 +10,31 @@ const globalSetting = require("./Setting");
     This file is main entry of game logic, it will be updated continually.
     Code comments for this file will be done later
 */
-function Main(setting = null){
+function Main(setting = null, customHands = null){      // customHands includes 'communityCards' and 'pocketCardsArray'
+    var resultMessage = new Object();
+    var handNumber;
+    var pocketNumber;
+    var communityNumber;
     if(setting == null)
         setting = globalSetting
-    var resultMessage = new Object();
-    var handNumber = setting.playerNumbers;
-    var shuffleTimes = setting.minmumShuffleTimes;
-    var pocketNumber = setting.poketCardsNumber;
-    var communityNumber = setting.communityCardsNumber;
-    var assignmentResult = HandAssignment(handNumber, shuffleTimes, pocketNumber, communityNumber);
-    var playersAllPossibleCombinations = new Array(handNumber);
-    resultMessage["assignResult"] = assignmentResult.show();                                           
+    if(customHands == null){
+        handNumber = setting.playerNumbers;
+        var shuffleTimes = setting.minmumShuffleTimes;
+        pocketNumber = setting.poketCardsNumber;
+        communityNumber = setting.communityCardsNumber;
+        var assignmentResult = HandAssignment(handNumber, shuffleTimes, pocketNumber, communityNumber);
+        resultMessage["assignResult"] = assignmentResult.show(); 
+    }
+    else{
+        var communityCards = customHands["communityCards"];
+        var pocketCardsArray = customHands["pocketCardsArray"];
+        handNumber = pocketCardsArray.length;
+        pocketNumber = pocketCardsArray[0].length;      // We assume all players have the same number of pocket cards
+        communityNumber = communityCards.length;
+        var assignmentResult = ManualHandAssignment(communityCards, pocketCardsArray);
+        resultMessage["assignResult"] = assignmentResult.show(); 
+    }                   
+    var playersAllPossibleCombinations = new Array(handNumber);                   
     var playersAllPossibleHands = new Array(handNumber);
     for(var i=0; i<handNumber;i++){
         playersAllPossibleCombinations[i] = GetAllPossibleHand(assignmentResult['Hand'+(i+1)], assignmentResult['Community']);
@@ -74,14 +89,6 @@ function Main(setting = null){
     else{
         resultMessage["result"] ="The winner is ----- Player "+winnerId+" --------\n";
     }
-    /*
-    for (var key in resultMessage["assignResult"])
-        console.log(resultMessage["assignResult"][key])
-    for (var key in resultMessage["bestHandsInfo"])
-        for (var subkey in resultMessage["bestHandsInfo"][key])
-            console.log(resultMessage["bestHandsInfo"][key][subkey])
-    console.log(resultMessage["result"]);
-    */
     return resultMessage;
 }
 
@@ -93,5 +100,33 @@ function GetAllPossibleHand(pocketCards, communityCards){
 }
 
 module.exports = Main;
-
-Main();
+/* -------------   The following are for test only --------------  */
+//var resultMessage = Main();
+/*
+var communityCards = [
+    {"suit": "Spade", "rank": 10}, {"suit": "Spade", "rank": 5}, {"suit": "Club", "rank": 4},
+    {"suit": "Heart", "rank": 13}, {"suit": "Diamond", "rank": 10}, {"suit": "Club", "rank": 3}
+];
+var pocketCardsArray = [
+    [
+        {"suit": "Spade", "rank": 4}, {"suit": "Club", "rank": 13}, {"suit": "Diamond", "rank": 2}
+    ],
+    [
+        {"suit": "Heart", "rank": 9}, {"suit": "Club", "rank": 14}, {"suit": "Spade", "rank": 5}
+    ],
+    [
+        {"suit": "Diamond", "rank": 6}, {"suit": "Spade", "rank": 7}, {"suit": "Club", "rank": 12}
+    ],
+    [
+        {"suit": "Sapde", "rank": 5}, {"suit": "Club", "rank": 14}, {"suit": "Club", "rank": 10}
+    ]
+];
+var customHands = {"communityCards": communityCards, "pocketCardsArray": pocketCardsArray};
+var resultMessage = Main(null, customHands);
+for (var key in resultMessage["assignResult"])
+console.log(resultMessage["assignResult"][key])
+for (var key in resultMessage["bestHandsInfo"])
+for (var subkey in resultMessage["bestHandsInfo"][key])
+    console.log(resultMessage["bestHandsInfo"][key][subkey])
+console.log(resultMessage["result"]);
+*/
