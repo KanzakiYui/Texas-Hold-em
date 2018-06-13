@@ -10,39 +10,45 @@
     <script src="manualHand.js"></script>
 </head>
 <body>
-    <div class="communityContainer">
-        <h2>Community Cards Customization</h2>
-        <div class="select">
-                <label for="communityNumber">Number of Community Cards</label>
-                <select id="communityNumber">
-                    <option value="0" selected></option>  <option value="4">4 Cards</option>   
-                    <option value="5">5 Cards</option>  <option value="6">6 Cards</option>   
-                    <option value="7">7 Cards</option>  <option value="8">8 Cards</option>
+    <div id="GlobalSettingContainer" name="GlobalSettingContainer" action="main" method="post" target="_self">
+        <h3 class="header">Texas Hold'em Global Setting</h3>
+        <div class="content">
+            <div>
+                <p>Select number of community cards</p>
+                <select id="CommunityCardSetting" name="CommunityCardSetting">
+                    <option value="4">4 Cards</option>    <option value="5" selected>5 Cards</option>    
+                    <option value="6">6 Cards</option>    <option value="7">7 Cards</option>   
+                    <option value="8">8 Cards</option> 
                 </select>
-        </div>
-        <div class="communityCardsSelectionBlock">
+            </div>
+            <div>
+                <p>Select number of players in match</p>
+                <select id="PlayerNumberSetting" name="PlayerNumberSetting">
+                    <option value="2">2 Players</option>    <option value="3" selected>3  Players</option>    
+                    <option value="4">4  Players</option>   <option value="5">5 Players</option>   
+                    <option value="6">6  Players</option> 
+                </select>
+            </div>
+            <div>
+                <p>Select number of pocket/hole cards each player holds</p>
+                <select id="PocketCardSetting" name="PocketCardSetting">
+                    <option value="2" selected>2 Cards</option>    <option value="3">3 Cards</option>    
+                    <option value="4">4 Cards</option>
+                </select>
+            </div>
         </div>
     </div>
-    <div class="pocketContainer">
-        <h2>Pocket Cards Customization</h2>
-        <div class="select">
-                <label for="playersNumber">Number of Players</label>
-                <select id="playersNumber" disabled>
-                    <option value="0" selected></option>  <option value="2">2 Players</option>   
-                    <option value="3">3 Players</option>  <option value="4">4 Players</option>   
-                    <option value="5">5 Players</option>  <option value="6">6 Players</option>
-                </select>
-        </div>
-        <div class="select">
-            <label for="pocketNumber">Number of Pocket Cards Each</label>
-            <select id="pocketNumber" disabled>
-                <option value="0" selected></option>  <option value="2">2 Cards</option>   
-                <option value="3">3 Cards</option>  <option value="4">4 Cards</option>   
-            </select>
+    <div id="ConfirmSetting">
+        <button onClick="ConfirmSetting()">Confirm Setting</button>
+    </div>
+    <div id="CommunityCardContainer" class="communityContainer">
+        <h3 class="header">Customize Your Community Cards</h3>
+        <div class="content">
+
         </div>
     </div>
     <div id="PlayersContainer">
-        
+
     </div>
 </body>
 </html>

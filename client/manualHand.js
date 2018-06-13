@@ -19,87 +19,54 @@ var Cards = {
     "QC": -1, "KD": -1, "KH": -1, "KS": -1,
     "AC": -1, "AD": -1, "AH": -1, "AS": -1
 }
-
 /**
  * Initial Event Bindings
  */
 $(function(){
-    $("#communityNumber").change(CommunityCardsChanged);
-    $("#playersNumber").change(PlayersNumberChanged);
-    $("#pocketNumber").change(PocketNumberChanged);
+    
 });
 /**
  * ---------- Event listeners -------------------
- */
-function CommunityCardsChanged(){
-    CommunityCardNumer = Number(this.value);
-    if(CommunityCardNumer == 0){
-        $("div.communityCardsSelectionBlock").empty();
-        $("#PlayersContainer").empty();
-        $("#playersNumber").attr("disabled", "true");
-        $("#playersNumber").val(0);
-        $("#pocketNumber").attr("disabled", "true");
-        $("#pocketNumber").val(0);
+*/
+function ConfirmSetting(){
+    CommunityCardNumer = $("#CommunityCardSetting").val();
+    PlayersNumber = $("#PlayerNumberSetting").val();
+    PocketNumber = $("#PocketCardSetting").val();
+    // community
+    var element = "";
+    for(var i=0; i<CommunityCardNumer; i++){
+        element += "<img src='images/NULL.png'>";
     }
-    else{
+    $("#CommunityCardContainer>div.content").html(element);
+    // players
+    element = "";
+     for(var i=0; i<PlayersNumber;i++){
+        element += "<div id='player"+(i+1)+"' class='pocketsForPlayer'><h3 class='header'>Player"+(i+1)+"'s Pocket Cards</h3><div class='content'></div></div>"
+    }
+    $("#PlayersContainer").html(element);
+    // each player
+    $("#PlayersContainer>div.pocketsForPlayer>div.content").each(function(index){
         var element = "";
-        for (var i=0;i<CommunityCardNumer;i++){
+        for(var i=0; i<PocketNumber; i++){
             element += "<img src='images/NULL.png'>";
         }
-        $("div.communityCardsSelectionBlock").html(element);
-        $("div.communityCardsSelectionBlock>img").each(function(){
-            $(this).click(PocketCardClicked);
-            $(this).hover(PocketCardHoverIn, PocketCardHoverOut);
-        });
-        $("#playersNumber").removeAttr("disabled");
-    }
-}
-
-function PlayersNumberChanged(){
-    PlayersNumber = Number(this.value);
-    if(PlayersNumber == 0){
-        $("#PlayersContainer").empty();
-        $("#pocketNumber").attr("disabled", "true");
-        $("#pocketNumber").val(0);
-    }
-    else{
-        var element = "";
-        for(var i=0; i<PlayersNumber;i++){
-            element += "<div id='player"+(i+1)+"' class='pocketsForPlayer'><h2 class='header'>Player"+(i+1)+"'s Pocket Cards</h2><div class='content'></div></div>"
-        }
-        $("#PlayersContainer").html(element);
-        $("#pocketNumber").removeAttr("disabled");
-    }
-}
-
-function PocketNumberChanged(){
-    PocketNumber = Number(this.value);
-    if(PocketNumber == 0){
-        $("#PlayersContainer>div.pocketsForPlayer>div.content").each(function(){
-            $(this).empty();
-        });
-    }
-    else{
-        $("#PlayersContainer>div.pocketsForPlayer>div.content").each(function(index){
-            var element = "";
-            for(var i=0; i<PocketNumber; i++){
-                element += "<img src='images/NULL.png'>";
-            }
-            $(this).html(element);
-            $(this).children("img").each(function(){
-                $(this).click(PocketCardClicked);
-                $(this).hover(PocketCardHoverIn, PocketCardHoverOut);
-            });
-        });
-    }
+        $(this).html(element);
+    });
+    $("img").each(function(){
+        $(this).hover(PocketCardHoverIn, PocketCardHoverOut);
+        $(this).data("value", "NULL");
+        $(this).click(PocketCardClicked);
+    });
 }
 
 function PocketCardHoverIn(){
     this.src = "images/Hover.png"
 }
 function PocketCardHoverOut(){
-    this.src = "images/NULL.png"
+    var value = $(this).data("value");
+    this.src = "images/"+value+".png";
 }
+
 function PocketCardClicked(){
     var parentElement =
 `
