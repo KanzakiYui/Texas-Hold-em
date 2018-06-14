@@ -1,6 +1,7 @@
 /**
  * Global Variables
  */
+var response = new Object();
 var CommunityCardNumer = 0;
 var PlayersNumber = 0;
 var PocketNumber = 0;
@@ -32,6 +33,11 @@ $(function(){
  * ---------- Event listeners -------------------
 */
 function ConfirmSetting(){
+    $("#Calculate>button").attr("disabled", true);
+    for(var key in Cards)
+        Cards[key] = true;
+    $("#BestHandContainer").empty();
+    $("#finalResult>h3").remove();
     CommunityCardNumer = $("#CommunityCardSetting").val();
     PlayersNumber = $("#PlayerNumberSetting").val();
     PocketNumber = $("#PocketCardSetting").val();
@@ -120,6 +126,7 @@ function ConfirmSelect(){
     }
     currentSelectionIDofCardInSelection = -1;
     $("#Selections").remove();
+    CheckIfCalculationIsAvailable();
 }
 
 function CloseSelect(){
@@ -127,6 +134,71 @@ function CloseSelect(){
     $("#Selections").remove();
 }
 
+function CheckIfCalculationIsAvailable(){
+    var unassignedCardsNumber = $("img[src='images/NULL.png']").length;
+    if(unassignedCardsNumber == 0)
+        $("#Calculate>button").removeAttr("disabled");
+}
+
+function Calculate(){
+    var communityArray = new Array();
+    $("#CommunityCardContainer>div.content>img").each(function(){
+        communityArray.push(ImageValueToJSON(ImageSrcToValue($(this).attr("src"))));
+    });
+    var pocketArray = new Array(PlayersNumber);
+    for (var i=0;i<PlayersNumber;i++)
+        pocketArray[i] = new Array();
+    $("#PlayersContainer>div.pocketsForPlayer>div.content>img").each(function(index){
+        pocketArray[Math.floor(index/PocketNumber)].push(ImageValueToJSON(ImageSrcToValue($(this).attr("src"))));
+    });
+    var result = {
+        "communityCards": communityArray,
+        "pocketCardsArray": pocketArray
+    };
+    result = JSON.stringify(result);
+    // Ajax Post
+    var XHR = new XMLHttpRequest();
+    XHR.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            response =JSON.parse(this.responseText);
+            console.log(response);
+            AssignmentShow();
+        }
+    };
+    XHR.open("POST", "ManualAssignment", true);
+    XHR.setRequestHeader("Content-type", "application/json");
+    XHR.send(result);
+}
+
+function AssignmentShow (){
+    var element = "";
+    for(var i=0; i<PlayersNumber;i++)
+        element +=
+`
+<div class="besthand">
+    <h3 class="header">Player${i+1}'s Best Hand</h3>
+    <div class="content">
+                
+    </div>
+    <h3 class="rankResult"></h3>
+</div>
+`;
+    $("#BestHandContainer").html(element);
+    var result = response["bestHandsInfo"];
+    $("div.besthand>div.content").each(function(index){
+        var bestHand = result[index+1]['besthand'];
+        for(var i=0; i<5; i++){
+            var eachCard = bestHand.slice(20*i, 20*i+20).trimEnd();
+            var filename = "images/"+GetImageName(eachCard)+".png";
+            $(this).append("<img src='"+filename+"'>");
+        }
+    });
+    $("div.besthand>h3.rankResult").each(function(index){
+        var bestRank = result[index+1]['bestrank'];
+        $(this).text(bestRank);
+    });
+    $("#finalResult").html(`<h3>${response["result"]}</h3>`);
+}
 
 /**
  * Support funtions
@@ -137,4 +209,34 @@ function ImageSrcToValue(src){
 
 function ImageValueToSrc(value){
     return "images/"+value+".png"
+}
+
+function ImageValueToJSON(value){
+    var suit = value.slice(-1);
+    var rank = value.slice(0,-1);
+    if(suit == 'C') suit = "Club";
+    else if(suit == 'D') suit = "Diamond";
+    else if(suit == 'H') suit = "Heart";
+    else suit = "Spade";
+    if(rank == 'J') rank = 11;
+    else if(rank == 'Q') rank = 12;
+    else if(rank == 'K') rank = 13;
+    else if(rank == 'A') rank = 14;
+    else rank = Number(rank);
+    return {"suit": suit, "rank": rank}
+}
+
+function GetImageName(name){
+    var nameArray = name.split(" ");
+    var suit = nameArray[0];
+    var rank = nameArray[1];
+    if(suit == "Club")    
+        suit = "C"
+    else if(suit == "Diamond")
+        suit = "D"
+    else if(suit == "Heart")
+        suit = "H"
+    else 
+        suit = "S"
+    return rank+suit;
 }

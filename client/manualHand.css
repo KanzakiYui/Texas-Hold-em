@@ -56,6 +56,7 @@ body{
 #GlobalSettingContainer>div.content>div>select:focus{
     outline: none;
 }
+#Calculate>button,
 #ConfirmSetting>button{
     width: 10rem;
     background: rgb(53, 46, 46);
@@ -64,12 +65,20 @@ body{
     border-radius: 1rem;
     font-weight: bolder;
 }
+#Calculate>button:hover,
 #ConfirmSetting>button:hover{
     cursor: pointer;
     background-color: rgb(175, 14, 14); 
 }
+#Calculate>button:focus,
 #ConfirmSetting>button:focus{
     outline: none;
+}
+#Calculate>button[disabled]{
+    background-color: rgb(117, 104, 104);
+}
+#Calculate>button[disabled]:hover{
+    cursor: not-allowed;
 }
 div.communityContainer{
     margin-top: 1rem;
@@ -212,5 +221,54 @@ div.communityContainer>div.content>img:hover,
     width: 100vw;
     height: 100vh;
 }
+#BestHandContainer{
+    width: 75%;
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 1rem;
+}
+#BestHandContainer>div.besthand{
+    border: 1px solid black;
+    width: 40%;
+    padding: 0.5rem 1rem;
+    margin: 1rem;
+}
+#BestHandContainer>div.besthand>h3{
+    margin: 0.25rem;
+    text-align: center;
+    color: rgb(192, 14, 14);
+}
+#BestHandContainer>div.besthand>div.content{
+    min-height: 6rem;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 1rem;
+}
+#BestHandContainer>div.besthand>div.content>img{
+    height: 5rem;
+}
+#BestHandContainer>div.besthand>h3.rankResult{
+    color: rgb(226, 143, 35);
+    text-align: center;
+    margin: 0.25rem;
+}
+#finalResult{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#finalResult>h3{
+    border: 1px solid black;
+    font-size: 125%;
+    color: rgb(173, 35, 35);
+    text-align: center;
+    padding: 0.5rem 1rem;
+    margin: 1rem;
+    white-space: pre-wrap;
+}
+
 
 

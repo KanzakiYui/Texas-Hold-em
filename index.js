@@ -5,26 +5,26 @@ var Main = require("./Poker/PokerMainProcess");
 app.use(bodyParser.json());                                                 // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }));     // for parsing application/x-www-form-urlencoded
 app.listen(process.env.PORT || 8001);
-
+app.use(express.static("client"));
 app.get("/", function(request, response){
     response.sendFile(__dirname+"/client/index.html");
 });
-app.get('/:filename', function (request, response) {
-    var filename = request.params.filename;
-    if(filename=="randomHand")
+app.get('/:action', function (request, response) {
+    var action = request.params.action;
+    if(action=="randomHand")
         response.sendFile(__dirname+"/client/randomHand.html");
-    else if(filename=="manualHand")
+    else if(action=="manualHand")
         response.sendFile(__dirname+"/client/manualHand.html");
-    else if(filename=="playerActionSimulation")
+    else if(action=="playerActionSimulation")
         response.send("Coming soon...");
-    else
-        response.sendFile(__dirname+"/client/"+filename);
 });
 app.post('/Assignment', function (request, response) {
     var result = Main(request.body);
     response.send(JSON.stringify(result));
 });
-app.get('/images/:filename', function (request, response) {
-    var filename = request.params.filename;
-    response.sendFile(__dirname+"/client/images/"+filename);
+
+app.post('/ManualAssignment', function(request, response){
+    var result = Main(null, request.body);
+    response.send(JSON.stringify(result));
 });
+
