@@ -93,6 +93,10 @@ div.communityContainer>div.content>img,
 #PlayersContainer>div.pocketsForPlayer>div.content>img{
     height: 5rem;
 }
+div.communityContainer>div.content>img:hover,
+#PlayersContainer>div.pocketsForPlayer>div.content>img:hover{
+    cursor: pointer;
+}
 #PlayersContainer{
     margin-top: 1rem;
     width: 100%;
@@ -119,14 +123,14 @@ div.communityContainer>div.content>img,
     align-items: center;
 }
 #Selections{
-    width: 52.2rem;
+    width: 80%;
+    min-width: 1280px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     position: fixed;
     top: 1rem;
-    left: calc(50vw - 26.1rem);
     border: 1px solid rgb(36, 33, 33);
     background-color: rgb(36, 33, 33);
     border-radius: 0.5rem;
@@ -134,9 +138,15 @@ div.communityContainer>div.content>img,
 #Selections>h2.header{
     text-align: center;
     color: white;
+    margin-bottom: 0;
 }
 #Selections>div.content{
     z-index: 3;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: baseline;
+    flex-wrap: wrap;
+    align-items: center;
 }
 #Selections>div.content>img{
     width: 3rem;
@@ -146,6 +156,15 @@ div.communityContainer>div.content>img,
 #Selections>div.content>img:hover{
     cursor: pointer;
     transform: scale(1.25);
+}
+#Selections>div.content>img.Selected{
+    border: 2.5px solid rgb(0, 255, 0);
+}
+#Selections>div.content>img.Used{
+    opacity: 0.3;
+}
+#Selections>div.content>img.Used:hover{
+    cursor: not-allowed;
 }
 #Selections>div.footer{
     display: flex;
@@ -157,11 +176,11 @@ div.communityContainer>div.content>img,
 #Selections>div.footer>button.confirm,
 #Selections>div.footer>button.reset,
 #Selections>div.footer>button.close{
-    padding: 1rem 1.5rem;
+    padding: 0.5rem 1rem;
     color: white;
     border-radius: 0.5rem;
-    font-size: 150%;
-    margin: 1rem 0rem;
+    font-size: 120%;
+    margin: 1rem;
 }
 #Selections>div.footer>button.confirm:hover,
 #Selections>div.footer>button.reset:hover,

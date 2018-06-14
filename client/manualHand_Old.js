@@ -120,8 +120,10 @@ function PocketCardClicked(){
 `;
     $("body").append(parentElement);
     var images = "";
+    var index = 0;
     for(var key in Cards){
-        $("#Selections>div.content").append("<img src='images/"+key + ".png'>");
+        index ++;
+       // $("#Selections>div.content").append("<img id='selectionCard_"+index+"' src='images/"+key + ".png'>");
     }
 }
 
